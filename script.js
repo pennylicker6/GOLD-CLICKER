@@ -7,7 +7,6 @@ const costs = {
     8: 175
 };
 
-// --- Load saved game on page load ---
 function loadGame() {
     const savedGold = localStorage.getItem('gold');
     const savedMultiplier = localStorage.getItem('multiplier');
@@ -19,20 +18,18 @@ function loadGame() {
     checkMultiplier();
 }
 
-// --- Save game ---
 function saveGame() {
     localStorage.setItem('gold', money);
     localStorage.setItem('multiplier', currentMultiplier);
 }
 
-// --- Add gold ---
+
 function addGold(amount = 1) {
     money += amount * currentMultiplier;
     updateGoldDisplay();
-    saveGame(); // Save after each click
+    saveGame();
 }
 
-// --- Buy multiplier ---
 function buyMult() {
     const select = document.getElementById('multiplier');
     const chosenMult = parseInt(select.value);
@@ -43,23 +40,20 @@ function buyMult() {
         alert(`Multiplier stacked! Current multiplier: ${currentMultiplier}x`);
         checkMultiplier();
         updateGoldDisplay();
-        saveGame(); // Save after buying
+        saveGame();
     } else {
         alert(`Not enough gold! You need ${costs[chosenMult]} gold.`);
     }
 }
 
-// --- Update multiplier display ---
 function checkMultiplier() {
-    const mult = document.getElementById('Mult');
-    mult.textContent = `Multiplier: ${currentMultiplier}`;
+    document.getElementById('Mult').textContent = `Multiplier: ${currentMultiplier}`;
 }
 
 function updateGoldDisplay() {
     document.getElementById('quantity').textContent = `Gold: ${money}`;
 }
 
-// --- Reset game ---
 function resetGame() {
     if (confirm("Are you sure you want to reset your game?")) {
         money = 0;
